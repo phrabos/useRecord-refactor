@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useRecord = (initial) => {
 
@@ -6,8 +6,12 @@ const useRecord = (initial) => {
   const [historyArr, setHistory] = useState([initial]);
   const [idx, setIdx] = useState(0);
 
+  useEffect(() => {
+    setCurrent(historyArr[idx])
+  }, [idx])
+
   const record = (hex) => {
-    setCurrent(hex);
+    // setCurrent(hex);
     setHistory(prev => [
       ...historyArr.slice(0, idx + 1),
       hex,
@@ -17,12 +21,12 @@ const useRecord = (initial) => {
 
   const undo = () => {
     setIdx(prevIdx => prevIdx - 1)
-    setCurrent(historyArr[idx - 1])
+    // setCurrent(historyArr[idx - 1])
 
   }
   const redo = () => {
     setIdx(prevIdx => prevIdx + 1)
-    setCurrent(historyArr[idx + 1])
+    // setCurrent(historyArr[idx + 1])
 
   }
 
